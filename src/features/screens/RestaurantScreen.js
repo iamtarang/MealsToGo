@@ -6,22 +6,28 @@ import {
     Text,
     View,
     StatusBar,
+    TouchableWithoutFeedback,
+    Keyboard
 } from "react-native";
+import RestaurantInfoCardComp from "../components/RestaurantInfoCardComp";
 
 const isAndroid = Platform.OS === "android";
 
 const RestaurantScreen = () => {
     return (
         <>
-            <SafeAreaView style={styles.container}>
-                <View style={styles.searchbar}>
-                    <Searchbar />
-                </View>
-                <View style={styles.list}>
-                    {/* <Text>list</Text> */}
-                    {/* <RestaurantInfoComponent /> */}
-                </View>
-            </SafeAreaView>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <SafeAreaView style={styles.container}>
+                    <View style={styles.searchbar}>
+                        <Searchbar
+                            style={{ backgroundColor: "white" }}
+                        />
+                    </View>
+                    <View style={styles.list}>
+                        <RestaurantInfoCardComp />
+                    </View>
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
         </>
     )
 }
@@ -31,12 +37,13 @@ const styles = StyleSheet.create({
         marginTop: isAndroid ? StatusBar.currentHeight : 0,
     },
     searchbar: {
-        padding: 16,
+        backgroundColor: "#E5E0FF",
+        padding: 16
     },
     list: {
         flex: 1,
         padding: 16,
-        backgroundColor: "lightcoral",
+        backgroundColor: "#E5E0FF",
     },
 });
 export default RestaurantScreen
