@@ -1,49 +1,62 @@
 import { Searchbar } from "react-native-paper";
 import {
-    Platform,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    View,
-    StatusBar,
+    FlatList,
     TouchableWithoutFeedback,
     Keyboard
 } from "react-native";
 import RestaurantInfoCardComp from "../components/RestaurantInfoCardComp";
-
-const isAndroid = Platform.OS === "android";
+import styled from "styled-components/native";
+import { Spacer } from "../components/spacer/spacerComponent";
+import { SafeArea } from "../components/SafeArea";
 
 const RestaurantScreen = () => {
+
+    const RestaurantListView = styled(FlatList).attrs({
+        paddingLeft: 16,
+        paddingRight: 16,
+        backgroundColor: "#f1f1f1"
+    })``;
+
+    const SearchBarView = styled.View`
+        background-color: #f1f1f1;
+        color: white;
+        padding: ${(props) => props.theme.space[3]};
+        padding-bottom: 8px;
+    `;
+
+    const Search = styled(Searchbar)`
+    background-color: white;
+    `;
+
     return (
         <>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                <SafeAreaView style={styles.container}>
-                    <View style={styles.searchbar}>
-                        <Searchbar
-                            style={{ backgroundColor: "white" }}
-                        />
-                    </View>
-                    <View style={styles.list}>
-                        <RestaurantInfoCardComp />
-                    </View>
-                </SafeAreaView>
+                <SafeArea>
+                    {/* <SearchBarView>
+                        <Search />
+                    </SearchBarView> */}
+                    {/* <Spacer position="top" size="large" /> */}
+                    <RestaurantListView
+                        data={[
+                            { name: 1 },
+                            { name: 2 },
+                            { name: 3 },
+                            { name: 4 },
+                            { name: 5 },
+                            { name: 6 },
+                        ]}
+                        renderItem={() =>
+                        (
+                            <Spacer position="top" size="medium">
+                                <RestaurantInfoCardComp />
+                            </Spacer>
+                        )}
+                        keyExtractor={(item) => item.name}
+                    />
+                </SafeArea>
             </TouchableWithoutFeedback>
         </>
     )
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginTop: isAndroid ? StatusBar.currentHeight : 0,
-    },
-    searchbar: {
-        backgroundColor: "#E5E0FF",
-        padding: 16
-    },
-    list: {
-        flex: 1,
-        padding: 16,
-        backgroundColor: "#E5E0FF",
-    },
-});
+
 export default RestaurantScreen
