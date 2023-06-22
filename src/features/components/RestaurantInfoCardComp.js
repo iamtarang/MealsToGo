@@ -37,15 +37,16 @@ const RestaurantInfoCardComp = ({ restaurant = {} }) => {
         <>
             <RestaurantCard
                 // mode=''
-                elevation={2}>
+                elevation={0}>
                 <Image source={{ uri: photos[0] }} />
                 <CardImage>
                     <View>
                         <Title>{name}</Title>
                         <Section>
                             <Rating>
-                                {ratingArray.map(() => (
+                                {ratingArray.map((index) => (
                                     <SvgXml
+                                        key={index}
                                         width={20}
                                         height={20}
                                         xml={star} />
